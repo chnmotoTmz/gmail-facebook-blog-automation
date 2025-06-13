@@ -1,0 +1,50 @@
+{
+  "gmail": {
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly",
+      "https://www.googleapis.com/auth/gmail.modify"
+    ],
+    "tokenPath": "token.json",
+    "credentialsPath": "credentials.json"
+  },
+  "monitoring": {
+    "interval": 300000,
+    "maxResults": 50,
+    "query": "from:facebookmail.com OR from:notification+*@facebookmail.com",
+    "labels": {
+      "processed": "PROCESSED_FACEBOOK_POSTS",
+      "pending": "PENDING_BLOG_POSTS",
+      "archive": "FACEBOOK_ARCHIVE"
+    }
+  },
+  "facebook": {
+    "targetUsers": [],
+    "postPatterns": [
+      "posted in",
+      "shared a post",
+      "added a new photo",
+      "updated their status"
+    ],
+    "excludePatterns": [
+      "liked your post",
+      "commented on your post",
+      "tagged you in"
+    ]
+  },
+  "blog": {
+    "platform": "hatena",
+    "autoPost": false,
+    "defaultCategory": "Facebook投稿",
+    "titlePrefix": "[Facebook] ",
+    "template": {
+      "header": "# Facebook投稿より\\n\\n",
+      "footer": "\\n\\n---\\n\\n*この記事はFacebook投稿から自動生成されました*"
+    }
+  },
+  "ai": {
+    "model": "gpt-3.5-turbo",
+    "maxTokens": 1000,
+    "temperature": 0.7,
+    "systemPrompt": "あなたはブログ記事作成のエキスパートです。Facebook投稿の内容を元に、読みやすく興味深いブログ記事を作成してください。"
+  }
+}
