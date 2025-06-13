@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "description": "Gmail駆動のFacebook投稿→ブログ記事自動生成システム",
   "main": "src/index.js",
+  "bin": {
+    "facebook-blog-automation": "./cli.js"
+  },
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "setup": "node src/setup.js",
-    "test": "jest"
+    "test": "jest",
+    "cli": "./cli.js"
   },
   "dependencies": {
     "googleapis": "^131.0.0",
@@ -18,7 +22,8 @@
     "dotenv": "^16.3.1",
     "fs-extra": "^11.2.0",
     "moment": "^2.29.4",
-    "openai": "^4.24.1"
+    "openai": "^4.24.1",
+    "commander": "^11.1.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
@@ -29,8 +34,19 @@
     "facebook",
     "blog",
     "automation",
-    "hatena"
+    "hatena",
+    "ai",
+    "openai",
+    "nodejs"
   ],
-  "author": "",
-  "license": "MIT"
+  "author": "chnmotoTmz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chnmotoTmz/gmail-facebook-blog-automation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chnmotoTmz/gmail-facebook-blog-automation/issues"
+  },
+  "homepage": "https://github.com/chnmotoTmz/gmail-facebook-blog-automation#readme"
 }
