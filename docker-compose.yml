@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  facebook-blog-automation:
+    build: .
+    container_name: facebook-blog-automation
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+    volumes:
+      - ./logs:/app/logs
+      - ./drafts:/app/drafts
+      - ./config:/app/config:ro
+      - ./credentials.json:/app/credentials.json:ro
+      - ./token.json:/app/token.json
+    networks:
+      - automation-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('健康チェック OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # オプション: Redis（キャッシュ用）
+  redis:
+    image: redis:7-alpine
+    container_name: automation-redis
+    restart: unless-stopped
+    volumes:
+      - redis-data:/data
+    networks:
+      - automation-network
+    command: redis-server --appendonly yes
+
+  # オプション: MongoDB（データ永続化用）
+  mongodb:
+    image: mongo:6
+    container_name: automation-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - automation-network
+    ports:
+      - "27017:27017"
+
+volumes:
+  redis-data:
+  mongodb-data:
+
+networks:
+  automation-network:
+    driver: bridge
